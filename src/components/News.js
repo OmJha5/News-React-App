@@ -44,19 +44,6 @@ export default class News extends Component {
       },
       {
         "source": {
-          "id": null,
-          "name": "Suntimes.com"
-        },
-        "author": "Georgia Nicols",
-        "title": "Horoscope for Sunday, January 5, 2025 - Chicago Sun-Times",
-        "description": null,
-        "url": "https://chicago.suntimes.com/horoscopes/2025/01/05/horoscopes-today-sunday-january-5-2025",
-        "urlToImage": "https://cst.brightspotcdn.com/dims4/default/2145dbd/2147483647/strip/true/crop/870x497+0+67/resize/1461x834!/quality/90/?url=https%3A%2F%2Fchorus-production-cst-web.s3.us-east-1.amazonaws.com%2Fbrightspot%2Fac%2Ffd%2F790f04b15195427014757adc0272%2Fgeorgia-nicols.jpg",
-        "publishedAt": "2025-01-05T06:01:50Z",
-        "content": "Moon Alert\r\nAvoid shopping or important decisions from 8 a.m. to 1:30 p.m. Chicago time. After that, the moon moves from Pisces into Aries.\r\nAries (March 21-April 19)\r\nYou will enjoy sleeping in this… [+3820 chars]"
-      },
-      {
-        "source": {
           "id": "associated-press",
           "name": "Associated Press"
         },
@@ -132,32 +119,6 @@ export default class News extends Component {
         "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/8ef0/live/e2b7be50-cac7-11ef-94cb-5f844ceb9e30.jpg",
         "publishedAt": "2025-01-05T02:27:09Z",
         "content": "The US Department of State has notified Congress of a planned $8bn (£6.4bn) arms sale to Israel, an American official has confirmed to the BBC.\r\nThe weapons consignment, which needs approval from Hou… [+2587 chars]"
-      },
-      {
-        "source": {
-          "id": "the-washington-post",
-          "name": "The Washington Post"
-        },
-        "author": "Holly Bailey, Lori Rozsa, Jim Lynn",
-        "title": "Jimmy Carter’s final trip begins with procession through rural Georgia - The Washington Post",
-        "description": "The motorcade bearing the former president’s casket passed through his beloved hometown of Plains before arriving in Atlanta.",
-        "url": "https://www.washingtonpost.com/nation/2025/01/04/jimmy-carter-funeral-plains-atlanta-georgia/",
-        "urlToImage": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/P7NVYTGI5UFPSGCWP5ATRJU5R4_size-normalized.jpg&w=1440",
-        "publishedAt": "2025-01-05T02:16:15Z",
-        "content": "ATLANTA The nation began its formal farewell to Jimmy Carter on Saturday, as the casket carrying the former president started its journey along the rural roads of south Georgia, where he spent much o… [+8465 chars]"
-      },
-      {
-        "source": {
-          "id": "cnn",
-          "name": "CNN"
-        },
-        "author": "CNN",
-        "title": "Washington Post cartoonist resigns over paper’s refusal to publish satirical cartoon of Bezos and Trump - CNN",
-        "description": null,
-        "url": "https://www.cnn.com/2025/01/04/media/washington-post-cartoonist-ann-telnaes-resigns-bezos/index.html",
-        "urlToImage": null,
-        "publishedAt": "2025-01-05T02:03:45Z",
-        "content": null
       },
       {
         "source": {
@@ -282,17 +243,11 @@ export default class News extends Component {
             <h1 className='my-5'>NewsShorts -- Top Headlines!</h1>
 
             <div className="row">
-                <div className="col-md-4">
-                    <NewsItems title="Criket" description="This is Nice" imageUrl="https://ichef.bbci.co.uk/news/1024/branded_news/df67/live/16bc05f0-cae4-11ef-8d88-4f10fb85187a.jpg" />
-                </div>
-
-                <div className="col-md-4">
-                    <NewsItems title="Movie" description="This is Movie" />
-                </div>
-
-                <div className="col-md-4">
-                    <NewsItems title="Politics" description="This is Politics" />
-                </div>
+                {this.state.articles.map((element) => {
+                    return <div className="col-md-3" key={element.url}>
+                        <NewsItems title={element.title.slice(0,44)+"..."} description={element.description.slice(0,88)+"..."} imageUrl={element.urlToImage} newsUrl={element.url} />
+                    </div>
+                })}
 
             </div>
         </div>
