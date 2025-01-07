@@ -13,8 +13,13 @@ export default class News extends Component {
         }
     }
 
+    capatalize = (text) => {
+        let lower = text.toLowerCase();
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+    }
+
     async componentDidMount(){
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=1&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=1&pageSize=${this.props.pageSize}`
         this.setState({loading : true})
         let data = await fetch(url)
         let parsedData = await data.json()
@@ -22,7 +27,7 @@ export default class News extends Component {
     }
 
     handlePreviousClick = async() => {
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
         this.setState({loading : true})
         let data = await fetch(url)
         let parsedData = await data.json()
@@ -30,7 +35,7 @@ export default class News extends Component {
     }
 
     handleNextClick = async() => {
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
         this.setState({loading : true})
         let data = await fetch(url)
         let parsedData = await data.json()
@@ -44,7 +49,7 @@ export default class News extends Component {
         {this.state.loading ? <Spinner/> : ""}
 
         <div className="container my-3">
-            <h1 className='my-5 text-center'>NewsShorts -- Top Headlines!</h1>
+            <h1 className='my-5 text-center'>NewsShorts -- Top Headlines({this.capatalize(this.props.category)})!</h1>
 
             <div className="row">
                 {!this.state.loading && this.state.articles.map((element) => {
