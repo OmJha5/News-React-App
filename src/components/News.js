@@ -18,28 +18,26 @@ export default class News extends Component {
         return lower.charAt(0).toUpperCase() + lower.slice(1);
     }
 
-    async componentDidMount(){
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=1&pageSize=${this.props.pageSize}`
+    async updatePageArticles(){
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page}&pageSize=${this.props.pageSize}`
         this.setState({loading : true})
         let data = await fetch(url)
         let parsedData = await data.json()
-        this.setState({articles : parsedData.articles , totalResults : parsedData.totalResults , loading : false})
+        this.setState({articles : parsedData.articles , totalResults : parsedData.totalResults , page : this.state.page , loading : false})
+    }
+
+    async componentDidMount(){
+        this.updatePageArticles();
     }
 
     handlePreviousClick = async() => {
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`
-        this.setState({loading : true})
-        let data = await fetch(url)
-        let parsedData = await data.json()
-        this.setState({articles : parsedData.articles , page : this.state.page - 1 , loading : false})
+        this.setState({page : this.state.page - 1});
+        this.updatePageArticles();
     }
 
     handleNextClick = async() => {
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`
-        this.setState({loading : true})
-        let data = await fetch(url)
-        let parsedData = await data.json()
-        this.setState({articles : parsedData.articles , page : this.state.page + 1 , loading : false})
+        this.setState({page : this.state.page + 1});
+        this.updatePageArticles();
     }
 
   render() {
