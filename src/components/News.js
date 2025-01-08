@@ -23,7 +23,7 @@ export default class News extends Component {
 
     async updatePageArticles(){
         this.props.setProgress(10)
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page}&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`
         this.setState({loading : true})
         this.props.setProgress(30)
         let data = await fetch(url)
@@ -39,7 +39,7 @@ export default class News extends Component {
 
     fetchData = async() => {
         this.setState({page : this.state.page + 1})
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page}&pageSize=${this.props.pageSize}`
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`
         let data = await fetch(url)
         let parsedData = await data.json()
         this.setState({articles : this.state.articles.concat(parsedData.articles) , totalResults : parsedData.totalResults , page : this.state.page , loading : false})
