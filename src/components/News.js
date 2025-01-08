@@ -22,10 +22,14 @@ export default class News extends Component {
     }
 
     async updatePageArticles(){
+        this.props.setProgress(10)
         let url = `https://newsapi.org/v2/top-headlines?country=us&category=${this.props.category}&apiKey=13bebc5e6b834a9f98155d8b3c8b3f48&page=${this.state.page}&pageSize=${this.props.pageSize}`
         this.setState({loading : true})
+        this.props.setProgress(30)
         let data = await fetch(url)
+        this.props.setProgress(70)
         let parsedData = await data.json()
+        this.props.setProgress(100)
         this.setState({articles : parsedData.articles , totalResults : parsedData.totalResults , page : this.state.page , loading : false})
     }
 
