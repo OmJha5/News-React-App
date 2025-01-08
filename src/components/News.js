@@ -38,8 +38,8 @@ export default function News(props) {
     
 
     let fetchData = async() => {
+        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`
         setPage(page + 1)
-        let url = `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`
         let data = await fetch(url)
         let parsedData = await data.json()
         setLoading(false)
@@ -51,10 +51,12 @@ export default function News(props) {
     return (
       <div>
 
-        {loading ? <Spinner/> : ""}
+        <div className="container" style={{margin : "100px auto 50px auto"}}>
+            {loading ? <Spinner/> : ""}
+        </div>
 
         <div className="container my-3">
-            <h1 className='my-5 text-center'>NewsShorts - Top {capatalize(props.category)} Headlines</h1>
+            <h1 className='text-center' style={{margin : "100px 0px 50px 0px"}}>NewsShorts - Top {capatalize(props.category)} Headlines</h1>
 
             <InfiniteScroll
                 dataLength={articles.length} 
